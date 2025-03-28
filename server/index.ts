@@ -169,7 +169,8 @@ app.use((req, res, next) => {
     let currentRetry = 0;
 
     const startServer = () => {
-      server.listen(port, () => {
+      // Bind the server to 0.0.0.0 so it's accessible externally
+      server.listen(port, '0.0.0.0', () => {
         log(`Server running on port ${port} in ${app.get("env")} mode`);
       }).on('error', (error: any) => {
         if (error.code === 'EADDRINUSE' && currentRetry < maxRetries) {
